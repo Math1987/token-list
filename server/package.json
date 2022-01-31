@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "0.1.0",
+  "description": "Server for mxzon apps",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "cp -R src/* prod && babel ./src -d prod",
+    "dev": "cp -R src/* prod && babel ./src -d prod && node prod/index.js"
+  },
+  "author": "Math17",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/runtime": "^7.16.7",
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.5",
+    "@babel/plugin-transform-runtime": "^7.16.7",
+    "@babel/preset-env": "^7.16.5"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
+    "express": "^4.17.2"
+  }
+}
