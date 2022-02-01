@@ -1,0 +1,6 @@
+<button *ngIf="!(userS.datas | async)" (click)="userS.connect()">connect</button>
+<button *ngIf="(userS.datas | async)" (click)="account()">{{userS.getPseudo() | async}}</button>
+<div *ngIf="menu" class="menu">
+    <div (click)="settings()">settings</div>
+    <div (click)="disconnect()">disconnect</div>
+</div>

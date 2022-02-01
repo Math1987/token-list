@@ -7,10 +7,16 @@ import { AppComponent } from './app.component';
 
 import { SolWalletsModule } from "angular-sol-wallets" ;
 import { AuthentificationInterceptor } from './shared/interceptors/authentification.interceptor';
+import { HomeComponent } from './home/home.component';
+import { ConnectionComponent } from './connection/connection.component';
+import { SettingsComponent } from './settings/settings.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HomeComponent,
+    ConnectionComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

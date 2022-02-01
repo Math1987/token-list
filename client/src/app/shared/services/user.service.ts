@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { SolWalletsService } from 'angular-sol-wallets';
 import { ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { map } from "rxjs/operators";
 
 type User = {
   _id : string,
@@ -17,11 +18,17 @@ type User = {
 export class UserService {
 
   datas : ReplaySubject<User> = new ReplaySubject();
+  datasNow : User | null = null ;
 
   constructor(
     private walletsS : SolWalletsService,
     private http : HttpClient
   ) {
+
+    this.datas.subscribe( d => {
+      this.datasNow = d ;
+      console.log('datas', d)
+    });
 
     this.getUser();
 
@@ -35,6 +42,18 @@ export class UserService {
       console.log('Error geting user.');
     });
 
+  }
+  getPseudo(){
+    return this.datas.pipe(
+      map( d => {
+
+        if ( !d?.pseudo ){
+            return d!.address.slice(0,7) ;
+        }
+
+        return d.pseudo ;
+      })
+    )
   }
 
   connect(){
@@ -63,6 +82,11 @@ export class UserService {
     });
 
   }
+  isConnected(){
+    if ( this.datasNow )
+    return true ;
+    return false ;
+  }
   disconnect(){
     this.datas.next(null);
     localStorage.removeItem('token');
@@ -82,7 +106,7 @@ export class UserService {
             this.datas.next( (response as any) as User );
 
           }, err => {
-            console.log('error connect');
+            console.log('error connect', err);
           });
         }catch(err) {
           console.log('error connect');
